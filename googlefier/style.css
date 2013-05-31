@@ -13,11 +13,7 @@ p {
 
   text-align: center;
 
-  color: lavender; /*#111;*/
-  /*background-color: steelblue;
-
-  border: 1px solid #cecece;
-  */
+  color: lavender; 
 
 }
 
@@ -29,12 +25,17 @@ p:before, p:after {
   content: '↓';
 }
 
-p, div[contenteditable] {
+p, div[contenteditable], footer {
 
   width: 60%;
   padding: 10px;
 
+}
+
+p, div[contenteditable] {
+
   text-shadow: 1px 1px 1px black;
+
 }
 
 div[contenteditable] {
@@ -47,5 +48,22 @@ div[contenteditable] {
   font-size: 18pt;
   
   box-shadow: 1px 1px 4px black;
+
+}
+
+footer {
+
+  margin: 60px auto auto auto;
+
+  color: black;
+
+  text-align: center;
+
+}
+
+footer a {
+
+  color: darkblue;
+  text-decoration: none;
 
 }
