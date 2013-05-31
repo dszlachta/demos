@@ -1,9 +1,20 @@
+/*
+ * Googlefier: changes letters color while typing to match those from the Google's logo.
+ *
+ * Demonstrates the lookup table technique to avoid conditionals and switch
+ * statement.
+ *
+ * github.com/dszlachta
+ * @d_szlachta
+ */
+
 (function(){
 
     'use strict';
 
     var Keys = window.Keys = {
 
+        /* our lookup table */
         bindings: [],
 
         bind: function(code, fn) {
@@ -16,6 +27,9 @@
         
         perform: function(code) {
 
+            /* return function binded to key code. If there's no function
+             * binded, return default function 
+             */
             return this.bindings[code] || this.defaultAction;
 
         }
@@ -28,7 +42,9 @@
 
         init: function() {
 
-            var styles = [ 'blue', 'red', 'yellow', 'blue', 'green', 'red' ];
+            /* Set color for each letter */
+
+            var colors = [ 'blue', 'red', 'yellow', 'blue', 'green', 'red' ];
 
             'google'.split('').forEach(function(char, index) {
 
@@ -36,7 +52,7 @@
 
                 Keys.bind(keyCode, function() { 
 
-                    App.setFormat(styles[index]);
+                    App.setFormat(colors[index]);
 
                 });
 
@@ -55,9 +71,7 @@
 
         run: function() {
 
-            Keys.defaultAction = function() {
-                document.execCommand('foreColor', false, 'black');
-            };
+            /* Delete the hint text from div when focused */
 
             this.editingNode.onfocus = function() {
 
@@ -67,11 +81,18 @@
             };
 
             this.editingNode.onkeydown = function(event) {
-                return (Keys.perform(event.keyCode).call(this, null));
+
+                /* Simple, huh? */
+                Keys.perform(event.keyCode).call(this, null);
+
             };
 
-            this.editingNode.onkeyup = function() {
-            //    document.execCommand('foreColor', false, 'black');
+            /* Clear formatting */
+
+            Keys.defaultAction = function() {
+
+                document.execCommand('foreColor', false, 'black');
+
             };
 
         }
