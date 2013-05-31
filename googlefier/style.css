@@ -4,17 +4,48 @@ body {
 
 }
 
+p {
+
+  margin: auto auto 20px auto;
+  
+  font-size: 16pt;
+  font-family: 'Arial', sans-serif;
+
+  text-align: center;
+
+  color: lavender; /*#111;*/
+  /*background-color: steelblue;
+
+  border: 1px solid #cecece;
+  */
+
+}
+
+p i {
+  color: lightblue;
+}
+
+p:before, p:after {
+  content: '↓';
+}
+
+p, div[contenteditable] {
+
+  width: 60%;
+  padding: 10px;
+
+  text-shadow: 1px 1px 1px black;
+}
+
 div[contenteditable] {
 
-  width: 800px;
   margin: auto;
-  padding: 10px;
+  min-height: 30px;
 
   background-color: white;
 
   font-size: 18pt;
   
-  text-shadow: 1px 1px 1px black;
   box-shadow: 1px 1px 4px black;
 
 }

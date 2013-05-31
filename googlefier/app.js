@@ -39,18 +39,17 @@
     var App = window.App = {
 
         editingNode: null,
+        proxyFn: null,
 
         init: function() {
 
             /* Set color for each letter */
 
-            var colors = [ 'blue', 'red', 'yellow', 'blue', 'green', 'red' ];
+            var colors = [ 'blue', 'blue', 'green', 'red' ];
 
-            'google'.split('').forEach(function(char, index) {
+            'ggle'.split('').forEach(function(char, index) {
 
-                var keyCode = char.toUpperCase().charCodeAt(0);
-
-                Keys.bind(keyCode, function() { 
+                Keys.bind(App.keyCode(char), function() { 
 
                     App.setFormat(colors[index]);
 
@@ -58,8 +57,18 @@
 
             });
 
+            Keys.bind(App.keyCode('o'), App.insertO);
+
+            this.proxyFn = this.insertFirstO;
+
             this.editingNode = document.querySelector('div[contenteditable]');
             this.run();
+
+        },
+
+        keyCode: function(char) {
+
+            return char.toUpperCase().charCodeAt(0);
 
         },
 
@@ -69,16 +78,23 @@
 
         },
 
+        insertO: function() {
+
+            App.proxyFn = App.proxyFn();
+
+        },
+
+        insertFirstO: function() {
+            App.setFormat('red');
+            return this.insertSecondO;
+        },
+
+        insertSecondO: function() {
+            App.setFormat('yellow');
+            return this.insertFirstO;
+        },
+
         run: function() {
-
-            /* Delete the hint text from div when focused */
-
-            this.editingNode.onfocus = function() {
-
-                this.innerHTML = '';
-                this.onfocus = function(){};
-
-            };
 
             this.editingNode.onkeydown = function(event) {
 
@@ -94,6 +110,8 @@
                 document.execCommand('foreColor', false, 'black');
 
             };
+
+            this.editingNode.focus();
 
         }
 
